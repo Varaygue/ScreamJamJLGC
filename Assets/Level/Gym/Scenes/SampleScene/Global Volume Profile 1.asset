@@ -188,6 +188,34 @@ MonoBehaviour:
   isClearDepthBeforeUIEnabled:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &-233325345801785820
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d61509376d05fc438d9ed9281e44e26, type: 3}
+  m_Name: CompressionVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  isEnabled:
+    m_OverrideState: 0
+    m_Value: 0
+  weight:
+    m_OverrideState: 0
+    m_Value: 1
+  accuracy:
+    m_OverrideState: 0
+    m_Value: 0
+  mode:
+    m_OverrideState: 0
+    m_Value: 0
+  colorspace:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +237,8 @@ MonoBehaviour:
   - {fileID: -7116825334354031478}
   - {fileID: 3798731083974134773}
   - {fileID: 7538753177955122283}
+  - {fileID: -233325345801785820}
+  - {fileID: 4073274495664241530}
 --- !u!114 &3798731083974134773
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -281,6 +311,40 @@ MonoBehaviour:
     m_Value: {x: -0.25, y: -0.25}
   tiledLayersSkyScrollRotationLayer1:
     m_OverrideState: 1
+    m_Value: 0
+--- !u!114 &4073274495664241530
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bad71758d66b75b45a6157133f3e6024, type: 3}
+  m_Name: AccumulationMotionBlurVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  weight:
+    m_OverrideState: 0
+    m_Value: 0
+  vignette:
+    m_OverrideState: 0
+    m_Value: 0
+  dither:
+    m_OverrideState: 0
+    m_Value: 1
+  zoom:
+    m_OverrideState: 0
+    m_Value: 0
+  zoomDither:
+    m_OverrideState: 0
+    m_Value: 0
+  anisotropy:
+    m_OverrideState: 0
+    m_Value: 0
+  applyToUIOverlay:
+    m_OverrideState: 0
     m_Value: 0
 --- !u!114 &4478001134830359333
 MonoBehaviour:
