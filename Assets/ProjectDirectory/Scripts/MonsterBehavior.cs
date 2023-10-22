@@ -2,42 +2,101 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class MonsterBehavior : MonoBehaviour
-{   
-    Transform target;
-    NavMeshAgent agent;
-    [Header("Monster stats")]
-    [SerializeField] private float stalkingSpeed = 3f;
-    [SerializeField] private float chasingSpeed = 3f;
-    [SerializeField] private float visionRadius = 5f;
-    // Start is called before the first frame update
+{
+    public NavMeshAgent ai;
+    public List<Transform> destinations;
+    public Animator aiAnim;
+    public float walkSpeed, chaseSpeed, minIdleTime, maxIdleTime, idleTime, sightDistance, catchDistance, chaseTime, minChaseTime, maxChaseTime, jumpscareTime;
+    public bool walking, chasing;
+    public Transform player;
+    Transform currentDest;
+    Vector3 dest;
+    int randNum;
+    public int destinationAmount;
+    public Vector3 rayCastOffset;
+    public string deathScene;
+    public FieldOfView script;
+
     void Start()
     {
-        target = PlayerManager.instance.player.transform;
-        agent = GetComponent<NavMeshAgent>();
+        walking = true;
+        randNum = Random.Range(0, destinationAmount);
+        currentDest = destinations[randNum];
     }
-
-    // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(target.position, transform.position);
-
-        if(distance<=visionRadius)
+        Vector3 direction = (player.position - transform.position).normalized;
+        RaycastHit hit;
+        if(script.canSeePlayer==true)
         {
-            agent.SetDestination(target.position);
-
-            if(distance <= agent.stoppingDistance)
+                walking = false;
+                StopCoroutine("stayIdle");
+                StopCoroutine("chaseRoutine");
+                StartCoroutine("chaseRoutine");
+                chasing = true;
+        }
+        if(chasing == true)
+        {
+            dest = player.position;
+            ai.destination = dest;
+            ai.speed = chaseSpeed;
+            aiAnim.ResetTrigger("walk");
+            aiAnim.ResetTrigger("idle");
+            aiAnim.SetTrigger("sprint");
+            if (ai.remainingDistance <= catchDistance)
             {
-                FaceTarget ();
+                player.gameObject.SetActive(false);
+                aiAnim.ResetTrigger("walk");
+                aiAnim.ResetTrigger("idle");
+                aiAnim.ResetTrigger("sprint");
+                aiAnim.SetTrigger("jumpscare");
+                StartCoroutine(deathRoutine());
+                chasing = false;
+            }
+        }
+        if(walking == true)
+        {
+            dest = currentDest.position;
+            ai.destination = dest;
+            ai.speed = walkSpeed;
+            aiAnim.ResetTrigger("sprint");
+            aiAnim.ResetTrigger("idle");
+            aiAnim.SetTrigger("walk");
+            if (ai.remainingDistance <= ai.stoppingDistance)
+            {
+                aiAnim.ResetTrigger("sprint");
+                aiAnim.ResetTrigger("walk");
+                aiAnim.SetTrigger("idle");
+                ai.speed = 0;
+                StopCoroutine("stayIdle");
+                StartCoroutine("stayIdle");
+                walking = false;
             }
         }
     }
-
-    void FaceTarget ()
+    IEnumerator stayIdle()
     {
-        Vector3 direction = (target.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3 (direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime*5f);
+        idleTime = Random.Range(minIdleTime, maxIdleTime);
+        yield return new WaitForSeconds(idleTime);
+        walking = true;
+        randNum = Random.Range(0, destinationAmount);
+        currentDest = destinations[randNum];
+    }
+    IEnumerator chaseRoutine()
+    {
+        chaseTime = Random.Range(minChaseTime, maxChaseTime);
+        yield return new WaitForSeconds(chaseTime);
+        walking = true;
+        chasing = false;
+        randNum = Random.Range(0, destinationAmount);
+        currentDest = destinations[randNum];
+    }
+    IEnumerator deathRoutine()
+    {
+        yield return new WaitForSeconds(jumpscareTime);
+        SceneManager.LoadScene(deathScene);
     }
 }
