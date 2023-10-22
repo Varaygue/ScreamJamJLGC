@@ -361,7 +361,7 @@ MonoBehaviour:
   active: 1
   isEnabled:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   bloom:
     m_OverrideState: 1
     m_Value: 0.318
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f7b4b43d392da4aa0edc7aa47211ca, type: 3}
   m_Name: QualityOverrideVolume
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   isPSXQualityEnabled:
     m_OverrideState: 1
     m_Value: 1
