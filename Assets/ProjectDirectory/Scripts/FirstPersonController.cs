@@ -6,6 +6,8 @@ using UnityEngine;
 public class FirstPersonController : MonoBehaviour
 {
     public bool canMove = true;
+    public bool isHiding = false;
+    public bool isCrouching;
     private bool IsSprinting => canSprint && Input.GetKey(sprintKey);
     private bool ShouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded;
     private bool ShouldCrouch => Input.GetKeyDown(crouchKey) && !duringCrouchingAnimation && characterController.isGrounded;
@@ -43,7 +45,6 @@ public class FirstPersonController : MonoBehaviour
      [SerializeField] private float timeToCrouch =0.25f;
      [SerializeField] private Vector3 crouchingCenter = new Vector3(0,0.5f,0);
      [SerializeField] private Vector3 standingCenter = new Vector3(0,0,0);
-     private bool isCrouching;
      private bool duringCrouchingAnimation;
 
      [Header("Headbob parameters")]
@@ -101,6 +102,16 @@ public class FirstPersonController : MonoBehaviour
                 HandleStamina();
             ApplyFinalMovements();
         }
+    }
+
+    private void OnTriggerEnter(Collider HidingZone)
+    {
+        isHiding = true;
+    }
+
+    private void OnTriggerExit(Collider HidingZone)
+    {
+        isHiding = false;
     }
 
     private void HandleMovementInput()
