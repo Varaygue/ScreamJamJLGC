@@ -77,6 +77,15 @@ public class MonsterBehavior : MonoBehaviour
             }
         }
     }
+
+    public void stopChase()
+    {
+        walking = true;
+        chasing = false;
+        StopCoroutine("chaseRoutine");
+        randNum = Random.Range(0, destinationAmount);
+        currentDest = destinations[randNum];
+    }
     IEnumerator stayIdle()
     {
         idleTime = Random.Range(minIdleTime, maxIdleTime);
