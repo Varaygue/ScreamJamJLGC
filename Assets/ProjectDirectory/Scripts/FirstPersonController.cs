@@ -104,16 +104,6 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider HidingZone)
-    {
-        isHiding = true;
-    }
-
-    private void OnTriggerExit(Collider HidingZone)
-    {
-        isHiding = false;
-    }
-
     private void HandleMovementInput()
     {
         currentInput = new Vector2((isCrouching ? crouchSpeed : IsSprinting ? sprintSpeed : walkSpeed)*Input.GetAxis("Vertical"), (isCrouching ? crouchSpeed : IsSprinting ? sprintSpeed : walkSpeed)*Input.GetAxis("Horizontal"));

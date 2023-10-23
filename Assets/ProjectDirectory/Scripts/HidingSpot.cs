@@ -37,7 +37,7 @@ public class HidingSpot : MonoBehaviour
     {
         if(interactable == true)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 hideText.SetActive(false);
                 hidingPlayer.SetActive(true);
@@ -53,11 +53,12 @@ public class HidingSpot : MonoBehaviour
                 hiding = true;
                 normalPlayer.SetActive(false);
                 interactable = false;
+                scriptPlayer.isHiding = true;
             }
         }
         if(hiding == true)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.G))
             {
                 stopHideText.SetActive(false);
                 normalPlayer.SetActive(true);
