@@ -364,10 +364,10 @@ MonoBehaviour:
     m_Value: 0
   bloom:
     m_OverrideState: 1
-    m_Value: 0.318
+    m_Value: 0.291
   grateMaskMode:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   grateMaskTexture:
     m_OverrideState: 1
     m_Value: {fileID: 0}
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f7b4b43d392da4aa0edc7aa47211ca, type: 3}
   m_Name: QualityOverrideVolume
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   isPSXQualityEnabled:
     m_OverrideState: 1
     m_Value: 1
