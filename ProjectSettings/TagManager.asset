@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HidingZone
   - Footsteps/GROUND
+  - ToHub
   layers:
   - Default
   - TransparentFX
