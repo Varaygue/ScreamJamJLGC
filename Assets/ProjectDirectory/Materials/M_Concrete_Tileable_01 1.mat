@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Chains_Tileable
+  m_Name: M_Concrete_Tileable_01 1
   m_Shader: {fileID: 4800000, guid: 055eab4e84dc70a47ae75b3125a22de6, type: 3}
   m_ValidKeywords:
   - _BRDF_MODE_LAMBERT
@@ -19,7 +19,7 @@ Material:
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
@@ -32,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 504262b6c797b9041949f53482016067, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ReflectionCubemap:
@@ -52,7 +52,7 @@ Material:
     - _Blend: 0
     - _BlendOp: 0
     - _ColorMask: 15
-    - _Cull: 2
+    - _Cull: 0
     - _DoubleSidedNormalMode: 0
     - _DrawDistanceOverrideMode: 0
     - _DstBlend: 0
@@ -81,7 +81,7 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _DrawDistanceOverride: {r: 100, g: 10000, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _MainColor: {r: 0.6886792, g: 0.68137014, b: 0.6724368, a: 1}
     - _PrecisionColorOverrideParameters: {r: 0, g: 0, b: 0, a: 0}
     - _PrecisionGeometryOverrideParameters: {r: 0, g: 0, b: 0, a: 0}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
