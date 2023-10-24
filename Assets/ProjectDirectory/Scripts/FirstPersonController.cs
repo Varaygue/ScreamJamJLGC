@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Random=UnityEngine.Random;
 
 public class FirstPersonController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private bool canCrouch = true;
     [SerializeField] private bool canUseHeadbob = true;
     [SerializeField] private bool useStamina = true;
+    [SerializeField] private bool useFootsteps = true;
 
     [Header("Controls")]
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
@@ -56,6 +58,16 @@ public class FirstPersonController : MonoBehaviour
      [SerializeField] private float crouchBobAmount =0.025f;
      private float defaultYPos = 0;
      private float timer;
+
+     [Header("Footsteps parameters")]
+     [SerializeField] private float baseStepSpeed = 0.5f;
+     [SerializeField] private float crouchStepMultiplier = 1.5f;
+     [SerializeField] private float sprintStepMultiplier = 0.6f;
+     [SerializeField] private AudioSource footstepsAudioSource = default;
+     [SerializeField] private AudioClip[] groundClip = default;
+     private float footstepsTimer = 0;
+     private float GetCurrentOffset => isCrouching? baseStepSpeed * crouchStepMultiplier : IsSprinting? baseStepSpeed * sprintStepMultiplier : baseStepSpeed;
+
 
      [Header("Stamina parameters")]
      [SerializeField] private float maxStamina = 100;
@@ -101,6 +113,8 @@ public class FirstPersonController : MonoBehaviour
             if(useStamina)
                 HandleStamina();
             ApplyFinalMovements();
+            if(useFootsteps)
+                HandleFootsteps();
         }
     }
 
@@ -140,6 +154,28 @@ public class FirstPersonController : MonoBehaviour
             playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x,
                 defaultYPos + Mathf.Sin(timer) * (isCrouching ? crouchBobAmount : IsSprinting ? sprintBobAmount : walkBobAmount),
                 playerCamera.transform.localPosition.z);
+        }
+    }
+
+    private void HandleFootsteps()
+    {
+        if(!characterController.isGrounded) return;
+        if(currentInput == Vector2.zero) return;
+
+        footstepsTimer -= Time.deltaTime;
+
+        if(footstepsTimer <= 0)
+        {
+            if(Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, 3))
+            {
+                switch (hit.collider.tag)
+                {
+                    case "Footsteps/GROUND":
+                        footstepsAudioSource.PlayOneShot(groundClip[Random.Range(0, groundClip.Length -1)]);
+                    break;
+                }
+            }
+            footstepsTimer = GetCurrentOffset;
         }
     }
     private void HandleStamina()
