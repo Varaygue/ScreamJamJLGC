@@ -70,6 +70,7 @@ public class FirstPersonController : MonoBehaviour
 
 
      [Header("Stamina parameters")]
+     public AudioClip playerPanting;
      [SerializeField] private float maxStamina = 100;
      [SerializeField] private float staminaUseMultiplier = 5;
      [SerializeField] private float timeBeforeStaminaRegenStarts = 3;
@@ -195,6 +196,9 @@ public class FirstPersonController : MonoBehaviour
             if(currentStamina <=0)
                 canSprint=false;
         }
+
+        //if(canSprint==false)
+        //    footstepsAudioSource.PlayOneShot(playerPanting);
 
         if(!IsSprinting && currentStamina<maxStamina && regeneratingStamina == null)
         {

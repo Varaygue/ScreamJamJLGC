@@ -33,6 +33,11 @@ public class MonsterBehavior : MonoBehaviour
         if(script.canSeePlayer==true)
         {
                 walking = false;
+                StartCoroutine("triggerRoutine");
+                aiAnim.ResetTrigger("walk");
+                aiAnim.ResetTrigger("idle");
+                aiAnim.ResetTrigger("sprint");
+                aiAnim.SetTrigger("angry");
                 StopCoroutine("stayIdle");
                 StopCoroutine("chaseRoutine");
                 StartCoroutine("chaseRoutine");
@@ -93,6 +98,11 @@ public class MonsterBehavior : MonoBehaviour
         walking = true;
         randNum = Random.Range(0, destinationAmount);
         currentDest = destinations[randNum];
+    }
+
+    IEnumerator triggerRoutine()
+    {
+        yield return new WaitForSeconds(2);
     }
     IEnumerator chaseRoutine()
     {
